@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sistema web para gestionar propietarios y sus negocios.">
+  <title>Gestión de Propietarios y Negocios</title>
+  <link rel="stylesheet" href="../estilos.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="#inicio">Gestión de Propietarios y Negocios</a>
+      <nav aria-label="Navegación principal">
+        <a href="#propietarios">Propietarios</a>
+        <a href="#negocios">Negocios</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="inicio">
+    <section class="intro">
+      <p class="eyebrow">Sistema académico · Fase 1</p>
+      <h1>Administración en un solo lugar</h1>
+      <p>Registra propietarios y organiza los negocios asociados a cada uno.</p>
+    </section>
+
+    <section class="summary" aria-label="Resumen de registros">
+      <article class="summary-card">
+        <span class="summary-label">Propietarios registrados</span>
+        <strong id="total-propietarios">0</strong>
+      </article>
+      <article class="summary-card">
+        <span class="summary-label">Negocios registrados</span>
+        <strong id="total-negocios">0</strong>
+      </article>
+    </section>
+
+    <section class="module" id="propietarios">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Módulo 01</p>
+          <h2>Propietarios</h2>
+        </div>
+        <p>Registra y consulta a las personas responsables de los negocios.</p>
+      </div>
+
+      <div class="module-grid">
+        <form class="panel form-panel" id="form-propietario" novalidate>
+          <h3 id="titulo-form-propietario">Registrar propietario</h3>
+          <label for="nombre-propietario">Nombre completo</label>
+          <input id="nombre-propietario" name="nombre" type="text" maxlength="100" required
+            placeholder="Ej. María García">
+
+          <label for="dni-propietario">DNI</label>
+          <input id="dni-propietario" name="dni" type="text" inputmode="numeric" maxlength="8"
+            pattern="[0-9]{8}" required placeholder="8 dígitos" aria-describedby="ayuda-dni">
+          <small id="ayuda-dni" class="field-help">Ingresa exactamente 8 números.</small>
+
+          <div class="form-actions">
+            <button class="button button-primary" id="guardar-propietario" type="submit">Guardar propietario</button>
+            <button class="button button-secondary hidden" id="cancelar-edicion-propietario" type="button">Cancelar</button>
+          </div>
+          <p class="form-message" id="mensaje-propietario" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="panel table-panel">
+          <div class="table-heading">
+            <div>
+              <h3>Listado de propietarios</h3>
+              <p>Busca por nombre o por DNI.</p>
+            </div>
+            <label class="search-label" for="buscar-propietario">Buscar propietario</label>
+            <input id="buscar-propietario" type="search" placeholder="Nombre o DNI">
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">DNI</th>
+                  <th scope="col">Negocios</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-propietarios"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" id="negocios">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Módulo 02</p>
+          <h2>Negocios</h2>
+        </div>
+        <p>Asocia cada negocio con un propietario previamente registrado.</p>
+      </div>
+
+      <div class="module-grid">
+        <form class="panel form-panel" id="form-negocio" novalidate>
+          <h3 id="titulo-form-negocio">Registrar negocio</h3>
+          <label for="nombre-negocio">Nombre comercial</label>
+          <input id="nombre-negocio" name="nombreNegocio" type="text" maxlength="100" required
+            placeholder="Ej. Bodega Central">
+
+          <label for="rubro-negocio">Rubro o actividad económica</label>
+          <input id="rubro-negocio" name="rubro" type="text" maxlength="80" required
+            placeholder="Ej. Abarrotes">
+
+          <label for="direccion-negocio">Dirección</label>
+          <input id="direccion-negocio" name="direccion" type="text" maxlength="150" required
+            placeholder="Ej. Av. Principal 123">
+
+          <label for="propietario-negocio">Propietario</label>
+          <select id="propietario-negocio" name="idPropietario" required>
+            <option value="">Selecciona un propietario</option>
+          </select>
+
+          <div class="form-actions">
+            <button class="button button-primary" id="guardar-negocio" type="submit">Guardar negocio</button>
+            <button class="button button-secondary hidden" id="cancelar-edicion-negocio" type="button">Cancelar</button>
+          </div>
+          <p class="form-message" id="mensaje-negocio" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="panel table-panel">
+          <div class="table-heading">
+            <div>
+              <h3>Listado de negocios</h3>
+              <p>Busca por nombre o rubro y filtra por propietario.</p>
+            </div>
+            <label class="search-label" for="buscar-negocio">Buscar negocio</label>
+            <input id="buscar-negocio" type="search" placeholder="Nombre o rubro">
+            <label class="search-label" for="filtrar-propietario">Filtrar por propietario</label>
+            <select id="filtrar-propietario">
+              <option value="">Todos los propietarios</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Negocio</th>
+                  <th scope="col">Rubro</th>
+                  <th scope="col">Dirección</th>
+                  <th scope="col">Propietario</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-negocios"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">Los registros se mantienen en memoria y se reinician al recargar la página.</div>
+  </footer>
+</body>
+</html>
